@@ -47,6 +47,38 @@ body {
   gap: 0.5rem;
 }
 
+/* utilities */
+.sidebar-list-item,
+.sidebar-list button,
+.project-btns button, .main-topbar button {
+  width: 100%;
+  padding: 0.2rem 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border: none;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+  height: 4.1rem;
+}
+
+.icon {
+  font-size: 2rem;
+  color: var(--gray-400);
+  margin-top: .2rem;
+}
+
+.icon.big {
+  font-size: 2.8rem;
+}
+
+.icon.md {
+  font-size: 2.2rem;
+}
+
+
+/* sidebar */
 .sidebar {
   height: 100%;
   background: var(--red-100);
@@ -127,20 +159,6 @@ body {
   width: 100%;
 }
 
-.sidebar-list-item,
-.sidebar-list button,
-.project-btns button {
-  width: 100%;
-  padding: 0.2rem 0.8rem;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  border: none;
-  outline: none;
-  background: transparent;
-  cursor: pointer;
-  height: 4.1rem;
-}
 
 .sidebar-list button .sidebar-icon {
   margin-right: 0.8rem;
@@ -189,3 +207,41 @@ body {
 .sidebar-list-info .sidebar-icon + p {
   color: var(--dim);
 }
+/* End of sidebar */
+
+
+/* main */
+.main{
+  width: 100%;
+  
+}
+
+.main-topbar{
+  width: 100%;
+  height: 6rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 3rem;
+}
+
+.main-topbar button {
+  display: inline-flex;
+  width: auto;
+}
+
+.main-topbar button >*:last-child{
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--dim);
+  margin-left: .8rem;
+}
+
+.main-content{
+  width: 100%;
+  height: calc(100vh - 6rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+/* End of main */
