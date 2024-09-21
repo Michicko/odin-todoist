@@ -1,11 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css"
+    />
     <title>Odin Todoist</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <div class="container">
+      <div class="sidebar">
+        <div class="sidebar-top">
+          <div class="profile">
+            <div class="user">
+              <span class="mdi mdi-account-circle sidebar-icon big"></span>
+              <p>John</p>
+            </div>
+            <span class="mdi mdi-chevron-down sidebar-icon"></span>
+          </div>
+          <div>
+            <span class="mdi mdi-bell-outline sidebar-icon"></span>
+            <span class="mdi mdi-dock-left sidebar-icon big"></span>
+          </div>
+        </div>
+        <div class="sidebar-content">
+          <div class="sidebar-list-box">
+            <div class="sidebar-list main-list" data-url="add-task">
+              <button class="add-task-btn">
+                <span class="mdi mdi-plus-circle sidebar-icon big red"></span>
+                <span class="red">Add Task</span>
+              </button>
+              <button data-url="search">
+                <span class="mdi mdi-magnify sidebar-icon md"></span>
+                <span>Search</span>
+              </button>
+              <button data-url="inbox">
+                <span class="mdi mdi-inbox-outline sidebar-icon md"></span>
+                <span>Inbox</span>
+              </button>
+              <button data-url="today">
+                <span class="mdi mdi-calendar-today sidebar-icon md"></span>
+                <span>Today</span>
+              </button>
+              <!-- <button data-url="upcoming">
+                <span class="mdi mdi-calendar-range sidebar-icon md"></span>
+                <span>Upcoming</span>
+              </button> -->
+              <button data-url="completed">
+                <span class="mdi mdi-check-circle-outline sidebar-icon md"></span>
+                <span>Completed</span>
+              </button>
+            </div>
+            <div class="sidebar-list">
+              <button data-url="projects">
+                <span class="mdi mdi-account-circle sidebar-icon big"></span>
+                <span>My Projects</span>
+              </button>
+              <div class="project-btns">
+                <button class="project-btn" data-url="appointments">
+                  <span class="icon" style="color: blue">#</span>
+                  <span>Appointments</span>
+                </button>
+                <button class="project-btn" data-url="goals">
+                  <span class="icon" style="color: green">#</span>
+                  <span>Goals</span>
+                </button>
+                <button class="project-btn" data-url="grocerry">
+                  <span class="icon" style="color: orange">#</span>
+                  <span>Groccery</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="main"></div>
+    </div>
+  </body>
 </html>
