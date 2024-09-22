@@ -72,7 +72,7 @@ body {
   margin-top: 0.2rem;
 }
 
-.icon.sm{
+.icon.sm {
   font-size: 1.8rem;
 }
 
@@ -352,14 +352,63 @@ body {
   align-items: center;
   gap: 0.5rem;
   cursor: pointer;
+  background: var(--white);
+  user-select: none;
 }
 
-.select-label span:last-child {
+.select-label p{
+  display: inline-block;
+}
+
+.select-label >*:last-child {
   color: var(--gray-500);
 }
 
-.select-label span.dark {
+.select-label .dark {
   color: var(--vim);
 }
 
+.select-label .disp::first-letter {
+  text-transform: uppercase;
+}
+
+
+
+
 /* End of main */
+
+.hidden-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0;
+}
+
+.custom-select {
+  position: relative;
+  border: none;
+}
+
+.dropdown {
+  display: block;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--dim);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: -1;
+  opacity: 0;
+}
