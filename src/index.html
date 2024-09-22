@@ -10,6 +10,57 @@
     <title>Odin Todoist</title>
   </head>
   <body>
+    <dialog id="task-dialog">
+      <form id="task-form">
+        <div class="form-body">
+          <input type="text" name="title" id="title" placeholder="Task name" />
+          <textarea
+            name="description"
+            id="description"
+            rows="2"
+            placeholder="Description"
+          ></textarea>
+          <div class="form-group">
+            <div class="custom-select">
+              <label class="select-label" for="due-date">
+                <span class="mdi mdi-calendar-outline icon md"></span>
+                <span>Due date</span>
+              </label>
+            </div>
+            <div class="custom-select">
+              <label class="select-label" for="due-date">
+                <span class="mdi mdi-flag-variant-outline icon md"></span>
+                <span>Priority</span>
+              </label>
+            </div>
+            <div class="custom-select">
+              <label class="select-label" for="due-date">
+                <span class="mdi mdi-alarm icon md"></span>
+                <span>Reminders</span>
+              </label>
+            </div>
+            <button type="button" class="">
+              <span class="mdi mdi-dots-horizontal icon md"></span>
+            </button>
+          </div>
+        </div>
+        <div class="form-footer">
+          <div class="custom-select">
+            <label class="select-label" for="due-date">
+              <div>
+                <span class="icon sm" style="color: blue">#</span>
+                <span class="dark">Appointments</span>
+              </div>
+              <span class="mdi mdi-menu-down icon big"></span>
+            </label>
+          </div>
+          <div class="btn-box">
+            <button type="button" class="cancel-btn" id="close-dialog-btn">Cancel</button>
+            <button type="button" class="save-btn">Add task</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
     <div class="container">
       <div class="sidebar">
         <div class="sidebar-top">
@@ -27,8 +78,8 @@
         </div>
         <div class="sidebar-content">
           <div class="sidebar-list-box">
-            <div class="sidebar-list main-list" data-url="add-task">
-              <button class="add-task-btn">
+            <div class="sidebar-list main-list">
+              <button class="add-task-btn" data-url="add-task">
                 <span class="mdi mdi-plus-circle sidebar-icon big red"></span>
                 <span class="red">Add Task</span>
               </button>
@@ -45,7 +96,9 @@
                 <span>Today</span>
               </button>
               <button data-url="completed">
-                <span class="mdi mdi-check-circle-outline sidebar-icon md"></span>
+                <span
+                  class="mdi mdi-check-circle-outline sidebar-icon md"
+                ></span>
                 <span>Completed</span>
               </button>
             </div>
@@ -79,9 +132,7 @@
             <span>View</span>
           </button>
         </div>
-        <div class="main-content">
-          
-        </div>
+        <div class="main-content"></div>
       </div>
     </div>
   </body>
