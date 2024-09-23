@@ -10,6 +10,64 @@
     <title>Odin Todoist</title>
   </head>
   <body>
+    <dialog id="project-dialog">
+      <form>
+        <div class="form-box">
+          <label for="name">Name</label>
+          <input type="text" name="name" id="name" class="bordered" />
+        </div>
+        <div class="form-box">
+          <label for="name">Color</label>
+          <div class="color-select-box">
+            <label for="selected-value" class="selected-value">
+              <span class="option-color" style="background: red;"></span>
+              <p class="option-name">red</p>
+              <input type="checkbox" name="selected-value" id="selected-value">
+              <span class="mdi mdi-chevron-down icon big"></span>
+            </label> 
+            <div class="select-options">
+              <label class="option" for="blue">
+                <span class="option-color" style="background: blue;"></span>
+                <p class="option-name">blue</p>
+                <input type="radio" name="select-option" value="blue" id="blue" class="option-check">
+              </label> 
+              <label class="option" for="green">
+                <span class="option-color" style="background: green;"></span>
+                <p class="option-name">green</p>
+                <input type="radio" name="select-option" value="green" id="green" class="option-check">
+              </label> 
+              <label class="option" for="red">
+                <span class="option-color" style="background: red;"></span>
+                <p class="option-name">red</p>
+                <input type="radio" name="select-option" value="red" id="red" class="option-check">
+              </label> 
+              <label class="option" for="black">
+                <span class="option-color" style="background: black;"></span>
+                <p class="option-name">black</p>
+                <input type="radio" name="select-option" value="black" id="black" class="option-check">
+              </label> 
+              <label class="option" for="purple">
+                <span class="option-color" style="background: purple;"></span>
+                <p class="option-name">purple</p>
+                <input type="radio" name="select-option" value="purple" id="purple" class="option-check">
+              </label> 
+            </div>
+          </div>
+        </div>
+        <div class="btn-box jc-end">
+          <button
+            type="button"
+            class="cancel-btn btn btn-text"
+            id="close-project-dialog-btn"
+          >
+            Cancel
+          </button>
+          <button type="button" class="save-btn btn btn-text">
+            Add Project
+          </button>
+        </div>
+      </form>
+    </dialog>
     <dialog id="task-dialog">
       <form id="task-form">
         <div class="form-body">
@@ -34,7 +92,10 @@
               />
             </div>
             <div class="custom-select">
-              <label class="select-label dropdown-label" for="priority-dropdown">
+              <label
+                class="select-label dropdown-label"
+                for="priority-dropdown"
+              >
                 <span class="mdi mdi-flag-variant-outline icon md"></span>
                 <p class="disp">Priority</p>
               </label>
@@ -86,10 +147,16 @@
             </select>
           </div>
           <div class="btn-box">
-            <button type="button" class="cancel-btn" id="close-dialog-btn">
+            <button
+              type="button"
+              class="cancel-btn btn btn-text"
+              id="close-task-dialog-btn"
+            >
               Cancel
             </button>
-            <button type="button" class="save-btn">Add task</button>
+            <button type="button" class="save-btn btn btn-text">
+              Add task
+            </button>
           </div>
         </div>
       </form>
@@ -112,46 +179,65 @@
         <div class="sidebar-content">
           <div class="sidebar-list-box">
             <div class="sidebar-list main-list">
-              <button class="add-task-btn" data-url="add-task">
-                <span class="mdi mdi-plus-circle sidebar-icon big red"></span>
-                <span class="red">Add Task</span>
+              <button
+                class="btn full hoverable red-text with-icon"
+                data-url="add-task"
+                id="open-task-dialog-btn"
+              >
+                <span class="mdi mdi-plus-circle icon big red"></span>
+                <span class="btn-text">Add Task</span>
               </button>
-              <button data-url="search">
-                <span class="mdi mdi-magnify sidebar-icon md"></span>
-                <span>Search</span>
+              <button
+                data-url="search"
+                class="btn hoverable hoverable-red-text with-icon"
+              >
+                <span class="mdi mdi-magnify icon md"></span>
+                <span class="btn-text">Search</span>
               </button>
-              <button data-url="inbox">
-                <span class="mdi mdi-inbox-outline sidebar-icon md"></span>
-                <span>Inbox</span>
+              <button
+                data-url="inbox"
+                class="btn hoverable hoverable-red-text with-icon"
+              >
+                <span class="mdi mdi-inbox-outline icon md"></span>
+                <span class="btn-text">Inbox</span>
               </button>
-              <button data-url="today">
-                <span class="mdi mdi-calendar-today sidebar-icon md"></span>
-                <span>Today</span>
+              <button
+                data-url="today"
+                class="btn hoverable hoverable-red-text with-icon"
+              >
+                <span class="mdi mdi-calendar-today icon md"></span>
+                <span class="btn-text">Today</span>
               </button>
-              <button data-url="completed">
-                <span
-                  class="mdi mdi-check-circle-outline sidebar-icon md"
-                ></span>
-                <span>Completed</span>
+              <button
+                data-url="completed"
+                class="btn hoverable hoverable-red-text with-icon"
+              >
+                <span class="mdi mdi-check-circle-outline icon md"></span>
+                <span class="btn-text">Completed</span>
               </button>
             </div>
             <div class="sidebar-list">
-              <button data-url="projects">
-                <span class="mdi mdi-account-circle sidebar-icon big"></span>
-                <span>My Projects</span>
-              </button>
+              <div class="btns">
+                <button data-url="projects" class="btn with-icon">
+                  <span class="mdi mdi-account-circle sidebar-icon big"></span>
+                  <span class="btn-text">My Projects</span>
+                </button>
+                <button id="open-project-dialog-btn" class="btn">
+                  <span class="mdi mdi-plus icon big"></span>
+                </button>
+              </div>
               <div class="project-btns">
-                <button class="project-btn" data-url="appointments">
+                <button class="btn hoverable with-icon" data-url="appointments">
                   <span class="icon" style="color: blue">#</span>
-                  <span>Appointments</span>
+                  <span class="btn-text">Appointments</span>
                 </button>
-                <button class="project-btn" data-url="goals">
+                <button class="btn hoverable with-icon" data-url="goals">
                   <span class="icon" style="color: green">#</span>
-                  <span>Goals</span>
+                  <span class="btn-text">Goals</span>
                 </button>
-                <button class="project-btn" data-url="grocerry">
+                <button class="btn hoverable with-icon" data-url="grocerry">
                   <span class="icon" style="color: orange">#</span>
-                  <span>Groccery</span>
+                  <span class="btn-text">Groccery</span>
                 </button>
               </div>
             </div>
@@ -160,12 +246,14 @@
       </div>
       <div class="main">
         <div class="main-topbar">
-          <button>
+          <button class="btn with-icon">
             <span class="mdi mdi-tune-variant icon md"></span>
-            <span>View</span>
+            <span class="btn-text">View</span>
           </button>
         </div>
-        <div class="main-content"></div>
+        <div class="main-content">
+          <!-- projects -->
+        </div>
       </div>
     </div>
   </body>

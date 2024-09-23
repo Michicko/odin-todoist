@@ -1,21 +1,53 @@
+// import {colorSelect }from "./colorSelect";
 import "./styles.css";
-import { format } from "date-fns";
 
-const taskDialogBtn = document.querySelector(".add-task-btn");
+const taskDialogBtn = document.querySelector("#open-task-dialog-btn");
+const closeTaskDialogBtn = document.querySelector("#close-task-dialog-btn");
 const taskDialog = document.querySelector("#task-dialog");
-const closeDialogBtn = document.querySelector("#close-dialog-btn");
+const projectDialog = document.querySelector("#project-dialog");
+const projectDialogBtn = document.querySelector("#open-project-dialog-btn");
+const closeProjectDialogBtn = document.querySelector(
+  "#close-project-dialog-btn"
+);
 const datePickers = document.querySelectorAll(".date-picker");
 const dropDownLabels = document.querySelectorAll(".dropdown-label");
+const colorSelectBox = document.querySelector(".color-select-box");
+const selectOptions = document
+  .querySelector(".select-options")
+  .querySelectorAll(".option-check");
+
+const options = [
+  {
+    name: "red",
+    color: "red",
+  },
+  {
+    name: "blue",
+    color: "blue",
+  },
+  {
+    name: "brown",
+    color: "brown",
+  },
+];
+
+const openDialog = (dialog) => {
+  dialog.showModal();
+};
+
+const closeDialog = (dialog) => {
+  dialog.close();
+};
 
 // Open task dialog form
-const openTaskDialog = () => {
-  taskDialog.showModal();
-};
+// const openTaskDialog = () => {
+//   taskDialog.showModal();
+// };
 
 // close task dialog form
-const closeTaskDialog = () => {
-  taskDialog.close();
-};
+// const closeTaskDialog = () => {
+//   taskDialog.close();
+// };
 
 // Open date picker
 const popOpenDatePicker = (e) => {
@@ -57,7 +89,7 @@ const buildDateTime = (today, selectedDate) => {
 };
 
 // Set and display the selected value from the current dropwodn
-const setDatePickerValue = (e) => {  
+const setDatePickerValue = (e) => {
   const label = e.target.previousElementSibling;
   const span = label.lastElementChild;
   let today = new Intl.DateTimeFormat("en-us", {
@@ -74,15 +106,42 @@ const setDatePickerValue = (e) => {
 
 const setSelectOptionValue = (e) => {
   const label = e.target.previousElementSibling;
-  const paragraph = label.querySelector('.disp');
+  const paragraph = label.querySelector(".disp");
   paragraph.textContent = e.target.value;
 };
 
-taskDialog.showModal();
+const selectColorOption = (e) => {
+  const option = e.target;
+  const selectedValue =
+      option.parentElement.parentElement.previousElementSibling;
+    const selectedColor = selectedValue.querySelector(".option-color");
+    const selectedName = selectedValue.querySelector(".option-name");
+    const selectedCheck = selectedValue.querySelector("#selected-value");
+    const value = e.target.value;
 
-taskDialogBtn.addEventListener("click", openTaskDialog);
+    selectedName.textContent = value;
+    selectedColor.style.background = value;
+    selectedCheck.checked = false;
+    option.checked = true;
+}
 
-closeDialogBtn.addEventListener("click", closeTaskDialog);
+// taskDialog.showModal();
+
+taskDialogBtn.addEventListener("click", () => {
+  openDialog(taskDialog);
+});
+
+closeTaskDialogBtn.addEventListener("click", () => {
+  closeDialog(taskDialog);
+});
+
+projectDialogBtn.addEventListener("click", () => {
+  openDialog(projectDialog);
+});
+
+closeProjectDialogBtn.addEventListener("click", () => {
+  closeDialog(projectDialog);
+});
 
 datePickers.forEach((datePicker) => {
   datePicker.addEventListener("change", setDatePickerValue);
@@ -94,5 +153,13 @@ dropDownLabels.forEach((label) => {
   label.addEventListener("click", () => {
     openSelect(select);
   });
-  select.addEventListener('change', setSelectOptionValue)
+  select.addEventListener("change", setSelectOptionValue);
 });
+
+selectOptions.forEach((option) => {
+  option.addEventListener("click", selectColorOption);
+});
+
+// colorSelectBox.append(colorSelect(options));
+
+projectDialog.showModal();
