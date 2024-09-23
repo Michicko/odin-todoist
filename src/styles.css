@@ -461,6 +461,7 @@ dialog button.cancel-btn {
   color: var(--black);
   font-family: inherit;
 }
+
 .selected-value {
   height: 3.5rem;
   width: 100%;
@@ -470,6 +471,7 @@ dialog button.cancel-btn {
   border-radius: var(--radius-md);
   padding: 0 1rem;
   user-select: none;
+  background: var(--white);
 }
 
 .selected-value .icon {

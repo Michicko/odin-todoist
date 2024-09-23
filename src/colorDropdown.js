@@ -15,8 +15,8 @@ const selectDropdownOption = (e) => {
   const selectedName = selectedValue.querySelector(".option-name");
   const selectedCheck = selectedValue.querySelector("#selected-value");
   const value = e.target.value;
-
-  selectedName.textContent = value;
+  
+  selectedName.textContent = option.id;
   selectedColor.style.background = value;
   selectedCheck.checked = false;
   option.checked = true;
