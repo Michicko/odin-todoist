@@ -13,10 +13,12 @@ const datePickers = document.querySelectorAll(".date-picker");
 const dropDownLabels = document.querySelectorAll(".dropdown-label");
 const colorSelectBox = document.querySelector(".color-select-box");
 
+// Open dialog
 const openDialog = (dialog) => {
   dialog.showModal();
 };
 
+// close dialog
 const closeDialog = (dialog) => {
   dialog.close();
 };
@@ -60,7 +62,7 @@ const buildDateTime = (today, selectedDate) => {
   return date;
 };
 
-// Set and display the selected value from the current dropwodn
+// Set and display the selected value from the current dropdown
 const setDatePickerValue = (e) => {
   const label = e.target.previousElementSibling;
   const span = label.lastElementChild;
@@ -111,23 +113,5 @@ dropDownLabels.forEach((label) => {
   select.addEventListener("change", setSelectOptionValue);
 });
 
-const options = [
-  {
-    name: "red",
-    value: "red",
-  },
-  {
-    name: "blue",
-    value: "blue",
-  },
-  {
-    name: "brown",
-    value: "brown",
-  },
-];
-
-
 colorSelectBox.innerHTML = ""
-colorSelectBox.append(...colorDropdown(options));
-
-projectDialog.showModal();
+colorSelectBox.append(...colorDropdown());

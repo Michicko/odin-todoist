@@ -1,3 +1,12 @@
+import colors from "./colors";
+
+const options = colors.map((el) => {
+  return {
+    name: el.name,
+    value: el.hex,
+  };
+});
+
 const selectDropdownOption = (e) => {
   const option = e.target;
   const selectedValue =
@@ -13,7 +22,11 @@ const selectDropdownOption = (e) => {
   option.checked = true;
 };
 
-const createDropdownOption = ({ name, value }, isSelectedValue, currentDropdownOption) => {
+const createDropdownOption = (
+  { name, value },
+  isSelectedValue,
+  currentDropdownOption
+) => {
   const optionClassName = isSelectedValue ? "selected-value" : "option";
   const optionFor = isSelectedValue ? "selected-value" : name;
   const optionInputType = isSelectedValue ? "checkbox" : "radio";
@@ -44,7 +57,7 @@ const createDropdownOption = ({ name, value }, isSelectedValue, currentDropdownO
 
   if (!isSelectedValue) {
     input.addEventListener("click", selectDropdownOption);
-    if(currentDropdownOption.name === name){
+    if (currentDropdownOption.name === name) {
       input.checked = true;
     }
   }
@@ -77,7 +90,7 @@ const getSelectedDropdownValue = (option) => {
   return selectedValue;
 };
 
-const colorDropdown = (options) => {
+const colorDropdown = () => {
   const initialOption = options[0];
   const dropdownSelectedValue = getSelectedDropdownValue(initialOption);
   const dropdownOptions = getDropdownOptions(options, initialOption);
