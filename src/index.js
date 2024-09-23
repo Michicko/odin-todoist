@@ -114,4 +114,5 @@ dropDownLabels.forEach((label) => {
 });
 
 colorSelectBox.innerHTML = ""
-colorSelectBox.append(...colorDropdown());
+colorDropdown.displayOnDom(colorSelectBox);
+
