@@ -1,4 +1,4 @@
-// import {colorSelect }from "./colorSelect";
+import colorDropdown from "./colorDropdown";
 import "./styles.css";
 
 const taskDialogBtn = document.querySelector("#open-task-dialog-btn");
@@ -12,24 +12,6 @@ const closeProjectDialogBtn = document.querySelector(
 const datePickers = document.querySelectorAll(".date-picker");
 const dropDownLabels = document.querySelectorAll(".dropdown-label");
 const colorSelectBox = document.querySelector(".color-select-box");
-const selectOptions = document
-  .querySelector(".select-options")
-  .querySelectorAll(".option-check");
-
-const options = [
-  {
-    name: "red",
-    color: "red",
-  },
-  {
-    name: "blue",
-    color: "blue",
-  },
-  {
-    name: "brown",
-    color: "brown",
-  },
-];
 
 const openDialog = (dialog) => {
   dialog.showModal();
@@ -38,16 +20,6 @@ const openDialog = (dialog) => {
 const closeDialog = (dialog) => {
   dialog.close();
 };
-
-// Open task dialog form
-// const openTaskDialog = () => {
-//   taskDialog.showModal();
-// };
-
-// close task dialog form
-// const closeTaskDialog = () => {
-//   taskDialog.close();
-// };
 
 // Open date picker
 const popOpenDatePicker = (e) => {
@@ -110,23 +82,6 @@ const setSelectOptionValue = (e) => {
   paragraph.textContent = e.target.value;
 };
 
-const selectColorOption = (e) => {
-  const option = e.target;
-  const selectedValue =
-      option.parentElement.parentElement.previousElementSibling;
-    const selectedColor = selectedValue.querySelector(".option-color");
-    const selectedName = selectedValue.querySelector(".option-name");
-    const selectedCheck = selectedValue.querySelector("#selected-value");
-    const value = e.target.value;
-
-    selectedName.textContent = value;
-    selectedColor.style.background = value;
-    selectedCheck.checked = false;
-    option.checked = true;
-}
-
-// taskDialog.showModal();
-
 taskDialogBtn.addEventListener("click", () => {
   openDialog(taskDialog);
 });
@@ -156,10 +111,23 @@ dropDownLabels.forEach((label) => {
   select.addEventListener("change", setSelectOptionValue);
 });
 
-selectOptions.forEach((option) => {
-  option.addEventListener("click", selectColorOption);
-});
+const options = [
+  {
+    name: "red",
+    value: "red",
+  },
+  {
+    name: "blue",
+    value: "blue",
+  },
+  {
+    name: "brown",
+    value: "brown",
+  },
+];
 
-// colorSelectBox.append(colorSelect(options));
+
+colorSelectBox.innerHTML = ""
+colorSelectBox.append(...colorDropdown(options));
 
 projectDialog.showModal();

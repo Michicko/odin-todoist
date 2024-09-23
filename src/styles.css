@@ -269,6 +269,7 @@ body {
 #project-dialog {
   max-width: 45rem;
   height: 35rem;
+  min-height: 35rem;
   padding: 1.5rem;
 }
 
@@ -528,6 +529,7 @@ label:has(#selected-value:checked) + .select-options {
 .option {
   height: 3.5rem;
   padding: 0 1rem;
+  user-select: none;
 }
 
 .option:hover,
