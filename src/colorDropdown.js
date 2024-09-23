@@ -1,13 +1,5 @@
 import colors from "./colors";
 
-// const colorDropdown = () => {
-//   const initialOption = options[0];
-//   const dropdownSelectedValue = getSelectedDropdownValue(initialOption);
-//   const dropdownOptions = getDropdownOptions(options, initialOption);
-
-//   return [dropdownSelectedValue, dropdownOptions];
-// };
-
 const colorDropdown = (function () {
   const options = colors.map((el) => {
     return {
@@ -15,6 +7,8 @@ const colorDropdown = (function () {
       value: el.hex,
     };
   });
+
+  let currentColor = null;
 
   const selectDropdownOption = (e) => {
     const option = e.target;
@@ -29,6 +23,10 @@ const colorDropdown = (function () {
     selectedColor.style.background = value;
     selectedCheck.checked = false;
     option.checked = true;
+    currentColor = {
+      name: option.id,
+      value,
+    };
   };
 
   const createDropdownOption = (
@@ -101,6 +99,10 @@ const colorDropdown = (function () {
     return selectedValue;
   };
 
+  const getCurrentColor = () => {
+    return currentColor;
+  };
+
   const initialOption = options[0];
   const dropdownSelectedValue = getSelectedDropdownValue(initialOption);
   const dropdownOptions = getDropdownOptions(options, initialOption);
@@ -110,7 +112,7 @@ const colorDropdown = (function () {
     container.append(...dropdownElements);
   };
 
-  return { displayOnDom };
+  return { displayOnDom, getCurrentColor };
 })();
 
 export default colorDropdown;

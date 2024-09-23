@@ -18,4 +18,4 @@ const createTodos = (function () {
   };
 })();
 
-export default createTodos
+export default createTodos;

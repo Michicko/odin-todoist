@@ -1,5 +1,6 @@
-import colorDropdown from "./colorDropdown";
 import "./styles.css";
+import colorDropdown from "./colorDropdown";
+import Project from "./Project";
 
 const taskDialogBtn = document.querySelector("#open-task-dialog-btn");
 const closeTaskDialogBtn = document.querySelector("#close-task-dialog-btn");
@@ -9,6 +10,7 @@ const projectDialogBtn = document.querySelector("#open-project-dialog-btn");
 const closeProjectDialogBtn = document.querySelector(
   "#close-project-dialog-btn"
 );
+const projectForm = document.querySelector('#project-form');
 const datePickers = document.querySelectorAll(".date-picker");
 const dropDownLabels = document.querySelectorAll(".dropdown-label");
 const colorSelectBox = document.querySelector(".color-select-box");
@@ -84,6 +86,18 @@ const setSelectOptionValue = (e) => {
   paragraph.textContent = e.target.value;
 };
 
+const createProject = (e) => {
+  e.preventDefault();
+  const projectNameElement = document.querySelector('#project-name');
+  const projectName = projectNameElement.value;
+  const projectColor = colorDropdown.getCurrentColor();  
+
+  if(!projectName && !projectColor) return;
+  const project = new Project(projectName, projectColor);
+  project.save();
+  projectNameElement.value = "";
+}
+
 taskDialogBtn.addEventListener("click", () => {
   openDialog(taskDialog);
 });
@@ -112,6 +126,8 @@ dropDownLabels.forEach((label) => {
   });
   select.addEventListener("change", setSelectOptionValue);
 });
+
+projectForm.addEventListener('submit', createProject);
 
 colorSelectBox.innerHTML = ""
 colorDropdown.displayOnDom(colorSelectBox);
