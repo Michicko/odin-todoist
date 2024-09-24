@@ -1,4 +1,5 @@
 import { getFromLocalStorage, saveToLocalStorage } from "./storage";
+import Task from "./Task";
 
 const Todos = (function () {
   let todos = getFromLocalStorage("todos") || [];
@@ -12,6 +13,16 @@ const Todos = (function () {
     todos.push(todo);
     saveToLocalStorage("todos", todos);
   };
+
+  const updateTodo = (todoId, updatedTodo) => {
+    let todoList = Array.from(todos);
+    let storageTodo = todoList.find((el) => el.id === todoId);
+    if (!storageTodo) return;
+    storageTodo = Task.update({ ...storageTodo, ...updatedTodo });    
+    todoList = todoList.filter((todo) => todo.id !== storageTodo.id);
+    todoList.push(storageTodo);
+    saveToLocalStorage("todos", todoList);
+  }
 
   const getTodos = (project) => {
     let todoList = Array.from(todos);
@@ -32,6 +43,7 @@ const Todos = (function () {
   return {
     saveTodo,
     getTodos,
+    updateTodo
   };
 })();
 

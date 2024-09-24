@@ -1,7 +1,9 @@
 import ElementClass from "./ElementClass";
+import { saveToLocalStorage } from "./storage";
+import Task from "./Task";
+import Todos from "./Todos";
 
 const UI = (function () {
-
   // create project
   const createProject = (project) => {
     const li = ElementClass.createElementObject("li").addClassList("project");
@@ -22,10 +24,21 @@ const UI = (function () {
     return li.getElement();
   };
 
+  const toggleTodoStatus = (e) => {
+    const todoEl = e.target.parentElement.parentElement;
+    const id = +todoEl.dataset.id;
+    const status = e.target.checked ? "completed" : "uncompleted";
+    Todos.updateTodo(id, { status });
+  };
+
   // create todo
   const createTodo = (todo) => {
     const li = ElementClass.createElementObject("li").addClassList(
-      `todo ${todo.priority} ${todo.status === 'new' ? '' : todo.status}`
+      `todo ${todo.priority} ${
+        todo.status === "new" || todo.status === "uncompleted"
+          ? ""
+          : todo.status
+      }`
     );
 
     let label = ElementClass.createElementObject("label")
@@ -39,19 +52,26 @@ const UI = (function () {
     let inputCheck = ElementClass.createElementObject("input")
       .addProperty({ key: "name", value: "todo-check" })
       .addProperty({ key: "type", value: "checkbox" })
-      .addId(`todo-${todo.id}`)
-      
+      .addId(`todo-${todo.id}`);
+
+    if (todo.status === "completed") {
+      inputCheck.addProperty({ key: "checked", value: "checked" });
+    }
+
     const p = ElementClass.createElementObject("p")
       .addTextContent(todo.title)
       .getElement();
 
     inputCheck = inputCheck.getElement();
 
+    inputCheck.addEventListener("change", toggleTodoStatus);
+
     label.appendChildren([checkMark, inputCheck]);
 
     label = label.getElement();
 
     li.appendChildren([label, p]);
+    li.addProperty({ key: "data-id", value: todo.id });
 
     return li.getElement();
   };
@@ -97,7 +117,7 @@ const UI = (function () {
     addProjectToList,
     createProjectList,
     createTodoList,
-    addTaskToList
+    addTaskToList,
   };
 })();
 

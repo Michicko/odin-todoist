@@ -682,21 +682,21 @@ label:has(#selected-value:checked) + .select-options {
   opacity: 1;
 }
 
-.todo.p1.completed label:has(input[type="checkbox"]:checked) {
-  background: var(--red);
-}
-
 .todo.p1 label:has(input[type="checkbox"]:checked) > .icon {
   color: var(--red);
 }
 
-.todo.p2 label:has(input[type="checkbox"]:checked) > .icon{
+.todo.p2 label:has(input[type="checkbox"]:checked) > .icon {
   color: var(--orange);
 }
 
-.todo.p3 label:has(input[type="checkbox"]:checked) > .icon{
+.todo.p3 label:has(input[type="checkbox"]:checked) > .icon {
   color: var(--blue);
-} 
+}
+
+.todo.p1.completed label:has(input[type="checkbox"]:checked) {
+  background: var(--red);
+}
 
 .todo.p2.completed label:has(input[type="checkbox"]:checked) {
   background: var(--orange);
@@ -706,10 +706,15 @@ label:has(#selected-value:checked) + .select-options {
   background: var(--blue);
 }
 
+.todo.p1.completed label:has(input[type="checkbox"]:checked) >.icon,
+.todo.p2.completed label:has(input[type="checkbox"]:checked) >.icon,
+.todo.p3.completed label:has(input[type="checkbox"]:checked) >.icon{
+  color: var(--white);
+}
 
-.todo.p1 label:has(input[type="checkbox"]:checked),
-.todo.p2 label:has(input[type="checkbox"]:checked),
-.todo.p3 label:has(input[type="checkbox"]:checked),
-.todo.p-4 label:has(input[type="checkbox"]:checked) {
-  transition: all 0.2s ease-in 0.2s;
+.todo.p1.todo.p1.completed label:has(input[type="checkbox"]:checked),
+.todo.p2.todo.p1.completed label:has(input[type="checkbox"]:checked),
+.todo.p3.todo.p1.completed label:has(input[type="checkbox"]:checked),
+.todo.p-4.todo.p1.completed label:has(input[type="checkbox"]:checked) {
+  transition: background 0.2s ease-in .2s;
 }

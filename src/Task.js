@@ -1,3 +1,4 @@
+import Todos from "./Todos";
 import createTodos from "./Todos";
 import { generateId } from "./utils";
 
@@ -12,6 +13,7 @@ export default class Task {
     checklist,
     category,
     project,
+    status
   }) {
     this.id = generateId(id, createTodos.getTodos());
     this.title = title;
@@ -22,6 +24,32 @@ export default class Task {
     this.checklist = checklist;
     this.category = category;
     this.project = project;
-    this.status = "new";
+    this.status =  status || "new";
+  }
+
+  static update({
+    id,
+    title,
+    description,
+    dueDate,
+    priority,
+    notes,
+    checklist,
+    category,
+    project,
+    status,
+  }) {
+    return new Task({
+      id,
+      title,
+      description,
+      dueDate,
+      priority,
+      notes,
+      checklist,
+      category,
+      project,
+      status,
+    });
   }
 }
