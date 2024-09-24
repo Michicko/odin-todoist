@@ -8,8 +8,19 @@ const createTodos = (function () {
     saveToLocalStorage("todos", todos);
   };
 
-  const getTodos = () => {
-    return Array.from(todos);
+  const getTodos = (project) => {
+    let todoList = Array.from(todos);
+    if (project) {
+      todoList = todoList.filter((todo) => {
+        if (todo.category === "project") {
+          if (todo.project === project) {
+            return todo;
+          }
+        }
+      });
+    }
+
+    return todoList;
   };
 
   return {

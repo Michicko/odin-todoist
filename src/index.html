@@ -155,28 +155,28 @@
               </button>
               <button
                 data-url="search"
-                class="btn hoverable hoverable-red-text with-icon"
+                class="btn hoverable hoverable-red-text with-icon link"
               >
                 <span class="mdi mdi-magnify icon md"></span>
                 <span class="btn-text">Search</span>
               </button>
               <button
                 data-url="inbox"
-                class="btn hoverable hoverable-red-text with-icon"
+                class="btn hoverable hoverable-red-text with-icon link"
               >
                 <span class="mdi mdi-inbox-outline icon md"></span>
                 <span class="btn-text">Inbox</span>
               </button>
               <button
                 data-url="today"
-                class="btn hoverable hoverable-red-text with-icon"
+                class="btn hoverable hoverable-red-text with-icon link"
               >
                 <span class="mdi mdi-calendar-today icon md"></span>
                 <span class="btn-text">Today</span>
               </button>
               <button
                 data-url="completed"
-                class="btn hoverable hoverable-red-text with-icon"
+                class="btn hoverable hoverable-red-text with-icon link"
               >
                 <span class="mdi mdi-check-circle-outline icon md"></span>
                 <span class="btn-text">Completed</span>
@@ -184,7 +184,7 @@
             </div>
             <div class="sidebar-list">
               <div class="btns">
-                <button data-url="projects" class="btn with-icon">
+                <button data-url="projects" class="btn with-icon link">
                   <span class="mdi mdi-account-circle sidebar-icon big"></span>
                   <span class="btn-text">My Projects</span>
                 </button>
@@ -193,15 +193,21 @@
                 </button>
               </div>
               <div class="project-btns">
-                <button class="btn hoverable with-icon" data-url="appointments">
+                <button
+                  class="btn hoverable with-icon link"
+                  data-url="appointments"
+                >
                   <span class="icon" style="color: blue">#</span>
                   <span class="btn-text">Appointments</span>
                 </button>
-                <button class="btn hoverable with-icon" data-url="goals">
+                <button class="btn hoverable with-icon link" data-url="goals">
                   <span class="icon" style="color: green">#</span>
                   <span class="btn-text">Goals</span>
                 </button>
-                <button class="btn hoverable with-icon" data-url="grocerry">
+                <button
+                  class="btn hoverable with-icon link"
+                  data-url="grocerry"
+                >
                   <span class="icon" style="color: orange">#</span>
                   <span class="btn-text">Groccery</span>
                 </button>
@@ -219,24 +225,44 @@
         </div>
         <div class="main-container">
           <header class="header">
-            <h1>Projects</h1>
+            <h1>Appointments</h1>
           </header>
           <div class="content">
-            <ul class="project-list">
-              <li class="project">
-                <span style="color: blue" class="project-color">#</span>
-                <p>Appointments</p>
-                <span>12</span>
+            <ul class="todo-list">
+              <li class="todo p-1">
+                <label for="todo-check" class="todo-check-label">
+                  <span class="mdi mdi-check-bold icon xs"></span>
+                  <input type="checkbox" name="todo-check" id="todo-check" />
+                </label>
+                <p>Submit invoices (Monthly)</p>
               </li>
-              <li class="project">
-                <span style="color: green" class="project-color">#</span>
-                <p>Goals</p>
-                <span>5</span>
+              <li class="todo">
+                <label for="todo-check" class="todo-check-label">
+                  <span class="mdi mdi-check-bold icon xs"></span>
+                  <input type="checkbox" name="todo-check" id="todo-check" />
+                </label>
+                <p>Contact clients for outstanding invoices (Monthly)</p>
               </li>
-              <li class="project">
-                <span style="color: yellow" class="project-color">#</span>
-                <p>Grocerry</p>
-                <span>6</span>
+              <li class="todo">
+                <label for="todo-check" class="todo-check-label">
+                  <span class="mdi mdi-check-bold icon xs"></span>
+                  <input type="checkbox" name="todo-check" id="todo-check" />
+                </label>
+                <p>Update invoice status in accounting software (Monthly)</p>
+              </li>
+              <li class="todo">
+                <label for="todo-check" class="todo-check-label">
+                  <span class="mdi mdi-check-bold icon xs"></span>
+                  <input type="checkbox" name="todo-check" id="todo-check" />
+                </label>
+                <p>Update bookeeping (Monthly)</p>
+              </li>
+              <li class="todo">
+                <label for="todo-check" class="todo-check-label">
+                  <span class="mdi mdi-check-bold icon xs"></span>
+                  <input type="checkbox" name="todo-check" id="todo-check" />
+                </label>
+                <p>Pay expenses (Monthly)</p>
               </li>
             </ul>
           </div>

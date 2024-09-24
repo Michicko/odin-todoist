@@ -1,7 +1,10 @@
 import "./styles.css";
 import colorDropdown from "./colorDropdown";
 import Project from "./Project";
+import projectsPage from "./projectsPage";
 
+let currentUrl;
+const pages = [{ url: "projects", page: projectsPage }];
 const taskDialogBtn = document.querySelector("#open-task-dialog-btn");
 const closeTaskDialogBtn = document.querySelector("#close-task-dialog-btn");
 const taskDialog = document.querySelector("#task-dialog");
@@ -10,10 +13,13 @@ const projectDialogBtn = document.querySelector("#open-project-dialog-btn");
 const closeProjectDialogBtn = document.querySelector(
   "#close-project-dialog-btn"
 );
-const projectForm = document.querySelector('#project-form');
+const projectForm = document.querySelector("#project-form");
 const datePickers = document.querySelectorAll(".date-picker");
 const dropDownLabels = document.querySelectorAll(".dropdown-label");
 const colorSelectBox = document.querySelector(".color-select-box");
+const mainContainer = document.querySelector(".main-container");
+
+const links = document.querySelectorAll(".link");
 
 // Open dialog
 const openDialog = (dialog) => {
@@ -80,23 +86,50 @@ const setDatePickerValue = (e) => {
   span.textContent = buildDateTime(today, date);
 };
 
+// Select option
 const setSelectOptionValue = (e) => {
   const label = e.target.previousElementSibling;
   const paragraph = label.querySelector(".disp");
   paragraph.textContent = e.target.value;
 };
 
+// Create new project
 const createProject = (e) => {
   e.preventDefault();
-  const projectNameElement = document.querySelector('#project-name');
+  const projectNameElement = document.querySelector("#project-name");
   const projectName = projectNameElement.value;
-  const projectColor = colorDropdown.getCurrentColor();  
+  const projectColor = colorDropdown.getCurrentColor();
 
-  if(!projectName && !projectColor) return;
+  if (!projectName || !projectColor) return;
+
   const project = new Project(projectName, projectColor);
   project.save();
+
+  if (currentUrl === "projects") {
+    projectsPage.addNewProject(project);
+  }
+
   projectNameElement.value = "";
-}
+  projectDialog.close();
+};
+
+// Navigate to page on button click
+const gotoPage = (e) => {
+  const mainPages = ["projects", "inbox", "search", "today", "completed"];
+  const url = e.currentTarget.dataset.url;
+  mainContainer.innerHTML = "";
+  
+  let currentPageElement;
+  
+
+  if (!mainPages.includes(url)) {
+    currentPageElement = projectsPage.getPage(url);
+  } else if (url === "projects") {
+    currentPageElement = projectsPage.getPage();
+  }
+
+  mainContainer.append(...currentPageElement);
+};
 
 taskDialogBtn.addEventListener("click", () => {
   openDialog(taskDialog);
@@ -127,8 +160,11 @@ dropDownLabels.forEach((label) => {
   select.addEventListener("change", setSelectOptionValue);
 });
 
-projectForm.addEventListener('submit', createProject);
+links.forEach((link) => {
+  link.addEventListener("click", gotoPage);
+});
 
-colorSelectBox.innerHTML = ""
+projectForm.addEventListener("submit", createProject);
+
+colorSelectBox.innerHTML = "";
 colorDropdown.displayOnDom(colorSelectBox);
-

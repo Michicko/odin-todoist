@@ -10,6 +10,7 @@
   --gray-300: #dedede;
   --gray-400: #999;
   --gray-500: #575757;
+  --check: #d6d6d6;
   --red-100: #fff6f0;
   --red-500: #e34432;
   --red-600: #cf3520;
@@ -17,6 +18,9 @@
   --black: #000;
   --radius-sm: 2.5px;
   --radius-md: 4px;
+  --red: #db4035;
+  --orange: #ff9933;
+  --blue: #4073ff;
 }
 
 *,
@@ -103,6 +107,10 @@ body {
 
 .icon.red {
   color: var(--red-600);
+}
+
+.icon.xs {
+  font-size: 1.2rem;
 }
 
 .icon.sm {
@@ -253,7 +261,7 @@ body {
   padding: 0 4rem;
 }
 
-.header{
+.header {
   height: 6rem;
   width: 100%;
   border-bottom: 1px solid var(--gray-200);
@@ -262,13 +270,14 @@ body {
   align-items: center;
 }
 
-.header h1{
+.header h1 {
   font-size: 3rem;
   font-weight: 600;
   color: var(--black);
+  text-transform: capitalize;
 }
 
-.content{
+.content {
   padding: 2rem;
   min-height: 40rem;
   overflow-y: auto;
@@ -560,7 +569,7 @@ label:has(#selected-value:checked) + .select-options {
 }
 
 .option:hover,
-.option:has(input[type="radio"]:checked)  {
+.option:has(input[type="radio"]:checked) {
   background: var(--gray-100);
 }
 
@@ -575,21 +584,22 @@ label:has(#selected-value:checked) + .select-options {
   text-transform: uppercase;
 }
 
-.project-list{
+.project-list {
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-.project{
+.project {
   display: flex;
   align-items: center;
   max-width: 35rem;
   cursor: pointer;
 }
 
-.project p{
+.project p,
+.todo p {
   font-size: 1.6rem;
   font-weight: 500;
   color: var(--dim);
@@ -597,16 +607,109 @@ label:has(#selected-value:checked) + .select-options {
   text-transform: capitalize;
 }
 
-.project >*:last-child{
+.project > *:last-child {
   margin-left: auto;
   font-size: 1.6rem;
   font-weight: 400;
   color: var(--gray-400);
 }
 
-.project-color{
+.project-color {
   font-size: 2rem;
   font-weight: 400;
   font-family: inherit;
   margin-right: 1rem;
+}
+
+.todo-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.todo {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.todo p {
+  font-weight: 400;
+  color: var(--gray-500);
+  font-size: 1.5rem;
+}
+
+.todo label {
+  margin-right: 1rem;
+  height: 2rem;
+  width: 2rem;
+  border: 1px solid var(--check);
+  border-radius: 50%;
+  position: relative;
+}
+
+.todo input[type="checkbox"] {
+  display: none;
+}
+
+.todo.p-1 label {
+  border-color: var(--red);
+}
+
+.todo.p-2 label {
+  border-color: var(--orange);
+}
+
+.todo.p-3 label {
+  border-color: var(--blue);
+}
+
+.todo label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo label > .icon {
+  color: var(--check);
+  line-height: 1;
+  margin-bottom: 0.2rem;
+  opacity: 0;
+}
+
+.todo label:has(input[type="checkbox"]:checked) > .icon {
+  opacity: 1;
+}
+
+.todo.p-1.completed label:has(input[type="checkbox"]:checked) {
+  background: var(--red);
+}
+
+.todo.p-1 label:has(input[type="checkbox"]:checked) > .icon {
+  color: var(--red);
+}
+
+.todo.p-2 label:has(input[type="checkbox"]:checked) > .icon{
+  color: var(--orange);
+}
+
+.todo.p-3 label:has(input[type="checkbox"]:checked) > .icon{
+  color: var(--blue);
+} 
+
+.todo.p-2.completed label:has(input[type="checkbox"]:checked) {
+  background: var(--orange);
+}
+
+.todo.p-3.completed label:has(input[type="checkbox"]:checked) {
+  background: var(--blue);
+}
+
+
+.todo.p-1 label:has(input[type="checkbox"]:checked),
+.todo.p-2 label:has(input[type="checkbox"]:checked),
+.todo.p-3 label:has(input[type="checkbox"]:checked),
+.todo.p-4 label:has(input[type="checkbox"]:checked) {
+  transition: all 0.2s ease-in 0.2s;
 }
