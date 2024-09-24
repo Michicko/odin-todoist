@@ -1,5 +1,9 @@
+import createTodos from "./Todos";
+import { generateId } from "./utils";
+
 export default class Task {
   constructor({
+    id,
     title,
     description,
     dueDate,
@@ -8,8 +12,8 @@ export default class Task {
     checklist,
     category,
     project,
-    status
   }) {
+    this.id = generateId(id, createTodos.getTodos());
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
@@ -18,6 +22,6 @@ export default class Task {
     this.checklist = checklist;
     this.category = category;
     this.project = project;
-    this.status = status
+    this.status = "new";
   }
 }

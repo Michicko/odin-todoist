@@ -1,18 +1,24 @@
 import { getFromLocalStorage, saveToLocalStorage } from "./storage";
 
-const createTodos = (function () {
+const Todos = (function () {
   let todos = getFromLocalStorage("todos") || [];
 
   const saveTodo = (todo) => {
+    let todoList = Array.from(todos);
+    const storageTodo = todoList.find(
+      (el) => el.title.toLowerCase() === todo.title.toLowerCase()
+    );
+    if (storageTodo) return;
     todos.push(todo);
     saveToLocalStorage("todos", todos);
   };
 
   const getTodos = (project) => {
     let todoList = Array.from(todos);
+    
     if (project) {
       todoList = todoList.filter((todo) => {
-        if (todo.category === "project") {
+        if (todo.category === "projects") {
           if (todo.project === project) {
             return todo;
           }
@@ -29,4 +35,4 @@ const createTodos = (function () {
   };
 })();
 
-export default createTodos;
+export default Todos;

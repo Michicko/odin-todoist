@@ -23,10 +23,6 @@ class ElementClass {
     return this;
   }
 
-  getElement = () => {
-    return this.element;
-  };
-
   addProperty({ key, value }) {
     this.element.setAttribute(key, value);
     return this;
@@ -36,6 +32,10 @@ class ElementClass {
     this.element.style[key] = value;
     return this;
   }
+
+  getElement = () => {
+    return this.element;
+  };
 
   static createElementObject = (element) => {
     return new ElementClass(element);

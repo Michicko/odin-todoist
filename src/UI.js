@@ -25,23 +25,32 @@ const UI = (function () {
   // create todo
   const createTodo = (todo) => {
     const li = ElementClass.createElementObject("li").addClassList(
-      `todo ${todo.priority}`
+      `todo ${todo.priority} ${todo.status === 'new' ? '' : todo.status}`
     );
-    const label = ElementClass.createElementObject("label")
+
+    let label = ElementClass.createElementObject("label")
       .addClassList("todo-check-label")
       .addProperty({ key: "for", value: `todo-${todo.id}` });
+
     const checkMark = ElementClass.createElementObject("span")
       .addClassList("mdi mdi-check-bold icon xs")
       .getElement();
-    const inputCheck = ElementClass.createElementObject("input")
+
+    let inputCheck = ElementClass.createElementObject("input")
       .addProperty({ key: "name", value: "todo-check" })
       .addProperty({ key: "type", value: "checkbox" })
       .addId(`todo-${todo.id}`)
-      .getElement();
+      
     const p = ElementClass.createElementObject("p")
-      .addTextContent(todo.name)
+      .addTextContent(todo.title)
       .getElement();
-    label.appendChildren([checkMark, inputCheck]).getElement();
+
+    inputCheck = inputCheck.getElement();
+
+    label.appendChildren([checkMark, inputCheck]);
+
+    label = label.getElement();
+
     li.appendChildren([label, p]);
 
     return li.getElement();
@@ -52,6 +61,12 @@ const UI = (function () {
     const ul = document.querySelector(".project-list");
     const projectEl = createProject(project);
     ul.appendChild(projectEl);
+  };
+
+  const addTaskToList = (task) => {
+    const ul = document.querySelector(".todo-list");
+    const todoEl = createTodo(task);
+    ul.appendChild(todoEl);
   };
 
   // create project list
@@ -82,6 +97,7 @@ const UI = (function () {
     addProjectToList,
     createProjectList,
     createTodoList,
+    addTaskToList
   };
 })();
 

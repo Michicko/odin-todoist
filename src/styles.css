@@ -653,15 +653,15 @@ label:has(#selected-value:checked) + .select-options {
   display: none;
 }
 
-.todo.p-1 label {
+.todo.p1 label {
   border-color: var(--red);
 }
 
-.todo.p-2 label {
+.todo.p2 label {
   border-color: var(--orange);
 }
 
-.todo.p-3 label {
+.todo.p3 label {
   border-color: var(--blue);
 }
 
@@ -682,34 +682,34 @@ label:has(#selected-value:checked) + .select-options {
   opacity: 1;
 }
 
-.todo.p-1.completed label:has(input[type="checkbox"]:checked) {
+.todo.p1.completed label:has(input[type="checkbox"]:checked) {
   background: var(--red);
 }
 
-.todo.p-1 label:has(input[type="checkbox"]:checked) > .icon {
+.todo.p1 label:has(input[type="checkbox"]:checked) > .icon {
   color: var(--red);
 }
 
-.todo.p-2 label:has(input[type="checkbox"]:checked) > .icon{
+.todo.p2 label:has(input[type="checkbox"]:checked) > .icon{
   color: var(--orange);
 }
 
-.todo.p-3 label:has(input[type="checkbox"]:checked) > .icon{
+.todo.p3 label:has(input[type="checkbox"]:checked) > .icon{
   color: var(--blue);
 } 
 
-.todo.p-2.completed label:has(input[type="checkbox"]:checked) {
+.todo.p2.completed label:has(input[type="checkbox"]:checked) {
   background: var(--orange);
 }
 
-.todo.p-3.completed label:has(input[type="checkbox"]:checked) {
+.todo.p3.completed label:has(input[type="checkbox"]:checked) {
   background: var(--blue);
 }
 
 
-.todo.p-1 label:has(input[type="checkbox"]:checked),
-.todo.p-2 label:has(input[type="checkbox"]:checked),
-.todo.p-3 label:has(input[type="checkbox"]:checked),
+.todo.p1 label:has(input[type="checkbox"]:checked),
+.todo.p2 label:has(input[type="checkbox"]:checked),
+.todo.p3 label:has(input[type="checkbox"]:checked),
 .todo.p-4 label:has(input[type="checkbox"]:checked) {
   transition: all 0.2s ease-in 0.2s;
 }

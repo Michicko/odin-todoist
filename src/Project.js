@@ -1,11 +1,9 @@
 import { getFromLocalStorage, saveToLocalStorage } from "./storage";
+import { generateId } from "./utils";
 
 export default class Project {
   constructor(name, color, todoCounts, id) {
-    this.id =
-      id || (Project.getAll() && Project.getAll().length > 0)
-        ? Project.getAll()[Project.getAll().length - 1].id + 1
-        : 1;
+    this.id = generateId(id, Project.getAll());
     this.name = name;
     this.color = color;
     this.todoCounts = todoCounts || 0;

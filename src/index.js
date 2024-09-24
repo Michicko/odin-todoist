@@ -2,8 +2,12 @@ import "./styles.css";
 import colorDropdown from "./colorDropdown";
 import Project from "./Project";
 import projectsPage from "./projectsPage";
+import Task from "./Task";
+import Todos from "./Todos";
+import UI from "./UI";
 
 let currentUrl;
+const ui = UI;
 const pages = [{ url: "projects", page: projectsPage }];
 const taskDialogBtn = document.querySelector("#open-task-dialog-btn");
 const closeTaskDialogBtn = document.querySelector("#close-task-dialog-btn");
@@ -14,6 +18,7 @@ const closeProjectDialogBtn = document.querySelector(
   "#close-project-dialog-btn"
 );
 const projectForm = document.querySelector("#project-form");
+const taskForm = document.querySelector("#task-form");
 const datePickers = document.querySelectorAll(".date-picker");
 const dropDownLabels = document.querySelectorAll(".dropdown-label");
 const colorSelectBox = document.querySelector(".color-select-box");
@@ -106,11 +111,42 @@ const createProject = (e) => {
   project.save();
 
   if (currentUrl === "projects") {
-    projectsPage.addNewProject(project);
+    ui.addProjectToList(project);
   }
 
-  projectNameElement.value = "";
+  // projectNameElement.value = "";
+  projectForm.reset();
   projectDialog.close();
+};
+
+// create new task
+const createTask = (e) => {
+  e.preventDefault();
+  const taskTitleElement = document.querySelector("#title");
+  const taskDescriptionElement = document.querySelector("#description");
+  const taskDueDateElement = document.querySelector("#due-date");
+  const taskPriorityElement = document.querySelector("#priority");
+  const taskProjectElement = document.querySelector("#project");
+  const pages = ["inbox", "today"];
+
+  if (!taskTitleElement.value) return;
+
+  const task = new Task({
+    title: taskTitleElement.value,
+    description: taskDescriptionElement.value,
+    dueDate: taskDueDateElement.value,
+    priority: taskPriorityElement.value,
+    category: taskProjectElement.value ? "projects" : "todos",
+    project: taskProjectElement.value,
+  });
+  Todos.saveTodo(task);
+
+  if (currentUrl === task.project || pages.includes(currentUrl)) {
+    ui.addTaskToList(task);
+  }
+
+  taskForm.reset();
+  taskDialog.close();
 };
 
 // Navigate to page on button click
@@ -118,9 +154,9 @@ const gotoPage = (e) => {
   const mainPages = ["projects", "inbox", "search", "today", "completed"];
   const url = e.currentTarget.dataset.url;
   mainContainer.innerHTML = "";
-  
+  currentUrl = url;
+
   let currentPageElement;
-  
 
   if (!mainPages.includes(url)) {
     currentPageElement = projectsPage.getPage(url);
@@ -165,6 +201,7 @@ links.forEach((link) => {
 });
 
 projectForm.addEventListener("submit", createProject);
+taskForm.addEventListener("submit", createTask);
 
 colorSelectBox.innerHTML = "";
 colorDropdown.displayOnDom(colorSelectBox);
