@@ -8,7 +8,7 @@ import UI from "./UI";
 
 let currentUrl;
 const ui = UI;
-const pages = [{ url: "projects", page: projectsPage }];
+
 const taskDialogBtn = document.querySelector("#open-task-dialog-btn");
 const closeTaskDialogBtn = document.querySelector("#close-task-dialog-btn");
 const taskDialog = document.querySelector("#task-dialog");
@@ -140,6 +140,8 @@ const createTask = (e) => {
     project: taskProjectElement.value,
   });
   Todos.saveTodo(task);
+  Project.updateTodoCounts(task.project);
+  console.log(task.project)
 
   if (currentUrl === task.project || pages.includes(currentUrl)) {
     ui.addTaskToList(task);

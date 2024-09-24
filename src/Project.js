@@ -1,7 +1,7 @@
 import { getFromLocalStorage, saveToLocalStorage } from "./storage";
 import { generateId } from "./utils";
 
-export default class Project {
+class Project {
   constructor(name, color, todoCounts, id) {
     this.id = generateId(id, Project.getAll());
     this.name = name;
@@ -11,18 +11,18 @@ export default class Project {
 
   save() {
     const projects = Project.getAll();
-    const foundProject = projects.find((el) => el.name === this.name);
+    const foundProject = projects.find((el) => el.name.toLowerCase() === this.name.toLowerCase());
     if (foundProject) return;
     projects.push(this);
     saveToLocalStorage("projects", projects);
   }
 
-  updateTodoCounts(projectId, counts) {
+  static updateTodoCounts(projectName) {
     let projects = Project.getAll();
-    const project = projects.find((project) => project.id === projectId);
+    const project = projects.find((project) => project.name.toLowerCase() === projectName.toLowerCase());
     if (!project) return;
-    projects = projects.filter((project) => project.id !== projectId);
-    project.todoCounts = counts;
+    projects = projects.filter((project) => project.name !== projectName);
+    project.todoCounts += 1;
     projects.push(project);
     saveToLocalStorage("projects", projects);
   }
@@ -40,3 +40,5 @@ export default class Project {
     return getFromLocalStorage("projects") || [];
   }
 }
+
+export default Project

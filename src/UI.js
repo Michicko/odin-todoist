@@ -1,6 +1,4 @@
 import ElementClass from "./ElementClass";
-import { saveToLocalStorage } from "./storage";
-import Task from "./Task";
 import Todos from "./Todos";
 
 const UI = (function () {
