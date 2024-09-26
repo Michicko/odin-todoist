@@ -5,6 +5,7 @@ import projectsPage from "./projectsPage";
 import Task from "./Task";
 import Todos from "./Todos";
 import UI from "./UI";
+import CompletedPage from "./CompletedPage";
 
 let currentUrl;
 const ui = UI;
@@ -164,6 +165,8 @@ const gotoPage = (e) => {
     currentPageElement = projectsPage.getPage(url);
   } else if (url === "projects") {
     currentPageElement = projectsPage.getPage();
+  }else if(url === "completed"){
+    currentPageElement = CompletedPage.getPage();
   }
 
   mainContainer.append(...currentPageElement);

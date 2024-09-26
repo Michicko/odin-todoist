@@ -109,6 +109,33 @@ const UI = (function () {
     ul.append(...todos);
   };
 
+  const createSectionList = (ul, sectionObject) => {
+    ul.innerHTML = "";
+    let keys = Object.keys(sectionObject);
+
+    keys = keys.map((key) => {
+      const section = ElementClass.createElementObject("li");
+      const h3 = ElementClass.createElementObject("h3")
+        .addTextContent(key)
+        .getElement();
+
+      let ul =
+        ElementClass.createElementObject("ul");
+
+      const list = sectionObject[key].map((el) => {
+        return createTodo(el);
+      });
+
+      ul.appendChildren([...list]);
+
+      ul = ul.getElement();
+
+      section.appendChildren([h3, ul]);
+      return section.getElement();
+    });
+    ul.append(...keys);
+  };
+
   return {
     createTodo,
     createProject,
@@ -116,6 +143,7 @@ const UI = (function () {
     createProjectList,
     createTodoList,
     addTaskToList,
+    createSectionList,
   };
 })();
 

@@ -718,3 +718,17 @@ label:has(#selected-value:checked) + .select-options {
 .todo.p-4.todo.p1.completed label:has(input[type="checkbox"]:checked) {
   transition: background 0.2s ease-in .2s;
 }
+
+.section-list{
+  list-style: none;
+}
+
+.section-list h3{
+  /* margin-bottom: 1rem; */
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--dim);
+  text-transform: capitalize;
+  border-bottom: 1px solid var(--gray-200);
+  padding-bottom: 1rem;
+}
