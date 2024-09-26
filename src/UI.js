@@ -143,27 +143,52 @@ const UI = (function () {
     return optionEl;
   };
 
-  const handleDropdownOnchange = (e) =>{
-    const dropdownSelectedValueElement = e.target.parentElement.querySelector('.select-option-name');
+  const handleDropdownOnchange = (e) => {
+    const dropdownSelectedValueElement = e.target.parentElement.querySelector(
+      ".select-option-name"
+    );
     dropdownSelectedValueElement.textContent = e.target.value;
-  }
+  };
 
   const createDropdown = (name, id, options, container) => {
     const select = document.createElement("select");
-    select.classList += 'dropdown';
+    select.classList += "dropdown";
     select.id = id;
     select.name = name;
-    select.value = options[0].value
-    options = [{name: `-- select ${name} -- `, value: ''}, ...options];
+    select.value = options[0].value;
+    options = [{ name: `-- select ${name} -- `, value: "" }, ...options];
     const optionList = options.map((option) => {
       return createDropdownOption(option);
     });
 
-    select.addEventListener('change', handleDropdownOnchange);
+    select.addEventListener("change", handleDropdownOnchange);
 
     select.append(...optionList);
     container.appendChild(select);
   };
+
+  const createSidebarProjectLink = (project) => {
+    const button = document.createElement("button");
+    button.classList += "btn hoverable with-icon link";
+    button.setAttribute("data-url", project.name);
+    const icon = document.createElement("span");
+    icon.textContent = "#";
+    icon.style.color = project.color.value;
+    icon.classList += 'icon'
+    const btnText = document.createElement("span");
+    btnText.textContent = project.name[0].toUpperCase() + project.name.slice(1);
+    btnText.classList += "btn-text"
+    
+    button.append(icon, btnText);
+    return button
+  };
+
+  const getSidebarProjectLinks = (container, projects) => {
+    const projectsEl = projects.map((project) => {
+      return createSidebarProjectLink(project);
+    })
+    container.append(...projectsEl);
+  }
 
   return {
     createTodo,
@@ -174,6 +199,7 @@ const UI = (function () {
     addTaskToList,
     createSectionList,
     createDropdown,
+    getSidebarProjectLinks
   };
 })();
 

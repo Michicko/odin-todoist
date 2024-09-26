@@ -1,6 +1,6 @@
 import Page from "./Page";
 import Project from "./Project";
-import createTodos from "./Todos";
+import Todos from "./Todos";
 import UI from "./UI";
 
 const projectsPage = (function () {
@@ -38,8 +38,13 @@ const projectsPage = (function () {
       const projects = Project.getAll();
       ui.createProjectList(ul, projects);
     } else {
-      const todos = createTodos.getTodos(url);
-      ui.createTodoList(ul, todos);
+      if (url === "todos") {
+        const todos = Todos.getTodosByCategory("todos");
+        ui.createTodoList(ul, todos);
+      } else {
+        const todos = Todos.getTodos(url);
+        ui.createTodoList(ul, todos);
+      }
     }
 
     return page;

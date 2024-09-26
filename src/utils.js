@@ -5,3 +5,10 @@ export const generateId = (id, array) => {
     return array && array.length > 0 ? array[array.length - 1].id + 1 : 1;
   }
 };
+
+export const reloadPage = () => {
+  setTimeout(() => {
+    window.location.reload();
+  }, 200)
+  
+}

@@ -6,6 +6,7 @@ import Task from "./Task";
 import Todos from "./Todos";
 import UI from "./UI";
 import CompletedPage from "./CompletedPage";
+import { reloadPage } from "./utils";
 
 const taskDialogBtn = document.querySelector("#open-task-dialog-btn");
 const closeTaskDialogBtn = document.querySelector("#close-task-dialog-btn");
@@ -21,12 +22,18 @@ const datePickers = document.querySelectorAll(".date-picker");
 const dropDownLabels = document.querySelectorAll(".dropdown-label");
 const colorSelectBox = document.querySelector(".color-select-box");
 const mainContainer = document.querySelector(".main-container");
+const sidebarProjectLinks = document.querySelector('.project-btns');
 
 let currentUrl;
 const ui = UI;
 const priorityDropdownOptions = [];
 let projectDropdownOptions = [];
 const storageProjects = Project.getAll();
+
+sidebarProjectLinks.innerHTML = '';
+
+// get sidebar projects links
+ui.getSidebarProjectLinks(sidebarProjectLinks, storageProjects);
 
 // get projects names
 for (let i = 0; i < storageProjects.length; i++) {
@@ -56,7 +63,9 @@ const projectBox = document.querySelector(".project-box");
 // create priorities dropdown
 ui.createDropdown("priority", "priority", priorityDropdownOptions, priorityBox);
 // create projects dropdown
-ui.createDropdown("project", "project", projectDropdownOptions, projectBox);
+if (projectDropdownOptions && projectDropdownOptions.length > 0) {
+  ui.createDropdown("project", "project", projectDropdownOptions, projectBox);
+}
 
 const links = document.querySelectorAll(".link");
 
@@ -136,7 +145,7 @@ const setSelectOptionValue = (e) => {
 const createProject = (e) => {
   e.preventDefault();
   const projectNameElement = document.querySelector("#project-name");
-  const projectName = projectNameElement.value;
+  const projectName = projectNameElement.value.toLowerCase();
   const projectColor = colorDropdown.getCurrentColor();
 
   if (!projectName || !projectColor) return;
@@ -151,6 +160,7 @@ const createProject = (e) => {
   // projectNameElement.value = "";
   projectForm.reset();
   projectDialog.close();
+  reloadPage();
 };
 
 // create new task
@@ -173,16 +183,17 @@ const createTask = (e) => {
     category: taskProjectElement.value ? "projects" : "todos",
     project: taskProjectElement.value,
   });
+
   Todos.saveTodo(task);
   Project.updateTodoCounts(task.project);
-  console.log(task.project);
 
-  if (currentUrl === task.project || pages.includes(currentUrl)) {
+  if (currentUrl === task.project) {
     ui.addTaskToList(task);
   }
 
   taskForm.reset();
   taskDialog.close();
+  reloadPage();
 };
 
 // Navigate to page on button click

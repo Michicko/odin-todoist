@@ -758,6 +758,9 @@ label:has(#selected-value:checked) + .select-options {
 
 .section-list {
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
 }
 
 .section-list h3 {
@@ -769,3 +772,4 @@ label:has(#selected-value:checked) + .select-options {
   border-bottom: 1px solid var(--gray-200);
   padding-bottom: 1rem;
 }
+

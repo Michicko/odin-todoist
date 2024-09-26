@@ -11,7 +11,7 @@ class Project {
 
   save() {
     const projects = Project.getAll();
-    const foundProject = projects.find((el) => el.name.toLowerCase() === this.name.toLowerCase());
+    const foundProject = projects.find((el) => el.name === this.name);
     if (foundProject) return;
     projects.push(this);
     saveToLocalStorage("projects", projects);
@@ -19,7 +19,7 @@ class Project {
 
   static updateTodoCounts(projectName) {
     let projects = Project.getAll();
-    const project = projects.find((project) => project.name.toLowerCase() === projectName.toLowerCase());
+    const project = projects.find((project) => project.name === projectName);
     if (!project) return;
     projects = projects.filter((project) => project.name !== projectName);
     project.todoCounts += 1;
