@@ -1,11 +1,10 @@
 import "./styles.css";
 import colorDropdown from "./colorDropdown";
 import Project from "./Project";
-import projectsPage from "./projectsPage";
 import Task from "./Task";
 import Todos from "./Todos";
 import UI from "./UI";
-import CompletedPage from "./CompletedPage";
+import Completed from "./Completed";
 import {
   buildDateTime,
   closeDialog,
@@ -13,6 +12,24 @@ import {
   openDialog,
   reloadPage,
 } from "./utils";
+import Today from "./Today";
+import Projects from "./Projects";
+import ProjectTodos from "./ProjectTodos";
+import TodosPage from "./TodosPage";
+
+const pages = [
+  { url: "today", getPage: Today.getPage },
+  { url: "completed", getPage: Completed.getPage },
+  { url: "projects", getPage: Projects.getPage },
+  {
+    url: "todos",
+    getPage: TodosPage.getPage,
+  },
+  {
+    url: Project.getAll().map((el) => el.name),
+    getPage: ProjectTodos.getPage,
+  },
+];
 
 const taskDialogBtn = document.querySelector("#open-task-dialog-btn");
 const closeTaskDialogBtn = document.querySelector("#close-task-dialog-btn");
@@ -152,30 +169,23 @@ const saveTask = (e) => {
     if (currentUrl === task.project) {
       ui.addTaskToList(task);
     }
-  } else if(method === 'update') {
+  } else if (method === "update") {
     Todos.updateTodo(taskId, task);
   }
   taskDialog.close();
 };
 
+const navigate = (url) => {
+  const currentPage = pages.find(
+    (el) => el.url === url || el.url.includes(url)
+  );
+  currentPage.getPage(url);
+};
+
 // Navigate to page on button click
 const gotoPage = (e) => {
-  const mainPages = ["projects", "inbox", "search", "today", "completed"];
   const url = e.currentTarget.dataset.url;
-  mainContainer.innerHTML = "";
-  currentUrl = url;
-
-  let currentPageElement;
-
-  if (!mainPages.includes(url)) {
-    currentPageElement = projectsPage.getPage(url);
-  } else if (url === "projects") {
-    currentPageElement = projectsPage.getPage();
-  } else if (url === "completed") {
-    currentPageElement = CompletedPage.getPage();
-  }
-
-  mainContainer.append(...currentPageElement);
+  navigate(url);
 };
 
 taskDialogBtn.addEventListener("click", () => {
@@ -216,3 +226,5 @@ taskForm.addEventListener("submit", saveTask);
 
 colorSelectBox.innerHTML = "";
 colorDropdown.displayOnDom(colorSelectBox);
+
+navigate("today");

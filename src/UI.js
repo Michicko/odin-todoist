@@ -1,13 +1,6 @@
 import ElementClass from "./ElementClass";
-import Task from "./Task";
 import Todos from "./Todos";
-import {
-  buildDateTime,
-  closeDialog,
-  formatDate,
-  openDialog,
-  reloadPage,
-} from "./utils";
+import { buildDateTime, formatDate, openDialog } from "./utils";
 const taskForm = document.querySelector("#task-form");
 const taskDialog = document.querySelector("#task-dialog");
 
@@ -72,8 +65,8 @@ const UI = (function () {
     taskProjectElement.value = todo.project;
     updateDropdownValue(taskProjectElement, todo.project);
 
-    taskForm.setAttribute('data-method', "update");
-    taskForm.setAttribute('data-taskid', todo.id);
+    taskForm.setAttribute("data-method", "update");
+    taskForm.setAttribute("data-taskid", todo.id);
   };
 
   // create todo
@@ -182,6 +175,7 @@ const UI = (function () {
       return section.getElement();
     });
     ul.append(...keys);
+    return ul;
   };
 
   const createDropdownOption = (option) => {

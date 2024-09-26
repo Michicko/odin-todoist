@@ -1,6 +1,6 @@
 import { getFromLocalStorage, saveToLocalStorage } from "./storage";
 import Task from "./Task";
-import { reloadPage } from "./utils";
+import { formatDate, reloadPage } from "./utils";
 
 const Todos = (function () {
   let todos = getFromLocalStorage("todos") || [];
@@ -41,13 +41,39 @@ const Todos = (function () {
 
   const getTodosByCategory = (category) => {
     return Array.from(todos).filter((todo) => todo.category === category);
+  };
+
+  const getCompletedTodos = () => {
+    const completedTodos = todos.filter((todo) => todo.status === 'completed');
+    return completedTodos;
   }
+
+  const getTodayTodos = () => {
+    const today = formatDate(new Date());
+    const [todayMonthDay, todayYear, _todayTime] = today.split(",");
+    const [todayMonth, todayDay] = todayMonthDay.split(" ");
+    const todayTodos = todos.filter((todo) => {
+      const dueDate = formatDate(todo.dueDate);
+      const [dueDateMonthDay, dueDateYear, _dueDateTime] = dueDate.split(",");
+      const [dueDateMonth, dueDateDay] = dueDateMonthDay.split(" ");
+      if (
+        todayDay === dueDateDay &&
+        todayMonth === dueDateMonth &&
+        todayYear === dueDateYear
+      ) {
+        return todo;
+      }
+    });
+    return todayTodos;
+  };
 
   return {
     saveTodo,
     getTodos,
     updateTodo,
-    getTodosByCategory
+    getTodosByCategory,
+    getTodayTodos,
+    getCompletedTodos
   };
 })();
 

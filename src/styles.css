@@ -265,7 +265,7 @@ body {
   height: 6rem;
   width: 100%;
   border-bottom: 1px solid var(--gray-200);
-  padding: 0 2rem;
+  /* padding: 0 2rem; */
   display: flex;
   align-items: center;
 }
