@@ -7,9 +7,6 @@ import Todos from "./Todos";
 import UI from "./UI";
 import CompletedPage from "./CompletedPage";
 
-let currentUrl;
-const ui = UI;
-
 const taskDialogBtn = document.querySelector("#open-task-dialog-btn");
 const closeTaskDialogBtn = document.querySelector("#close-task-dialog-btn");
 const taskDialog = document.querySelector("#task-dialog");
@@ -24,6 +21,42 @@ const datePickers = document.querySelectorAll(".date-picker");
 const dropDownLabels = document.querySelectorAll(".dropdown-label");
 const colorSelectBox = document.querySelector(".color-select-box");
 const mainContainer = document.querySelector(".main-container");
+
+let currentUrl;
+const ui = UI;
+const priorityDropdownOptions = [];
+let projectDropdownOptions = [];
+const storageProjects = Project.getAll();
+
+// get projects names
+for (let i = 0; i < storageProjects.length; i++) {
+  if (!projectDropdownOptions.includes(storageProjects[i].name)) {
+    projectDropdownOptions.push(storageProjects[i].name);
+  }
+}
+// create projects dropdown options
+projectDropdownOptions = projectDropdownOptions.map((el) => {
+  let project = el.toLowerCase();
+  return {
+    name: project,
+    value: project,
+  };
+});
+
+// create priorities dropdown options
+for (let i = 1; i <= 4; i++) {
+  priorityDropdownOptions.push({
+    name: `p${i}`,
+    value: `p${i}`,
+  });
+}
+const priorityBox = document.querySelector(".priority-box");
+const projectBox = document.querySelector(".project-box");
+
+// create priorities dropdown
+ui.createDropdown("priority", "priority", priorityDropdownOptions, priorityBox);
+// create projects dropdown
+ui.createDropdown("project", "project", projectDropdownOptions, projectBox);
 
 const links = document.querySelectorAll(".link");
 
@@ -142,7 +175,7 @@ const createTask = (e) => {
   });
   Todos.saveTodo(task);
   Project.updateTodoCounts(task.project);
-  console.log(task.project)
+  console.log(task.project);
 
   if (currentUrl === task.project || pages.includes(currentUrl)) {
     ui.addTaskToList(task);
@@ -165,7 +198,7 @@ const gotoPage = (e) => {
     currentPageElement = projectsPage.getPage(url);
   } else if (url === "projects") {
     currentPageElement = projectsPage.getPage();
-  }else if(url === "completed"){
+  } else if (url === "completed") {
     currentPageElement = CompletedPage.getPage();
   }
 

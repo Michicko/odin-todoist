@@ -109,6 +109,7 @@ const UI = (function () {
     ul.append(...todos);
   };
 
+  // create section list
   const createSectionList = (ul, sectionObject) => {
     ul.innerHTML = "";
     let keys = Object.keys(sectionObject);
@@ -119,8 +120,7 @@ const UI = (function () {
         .addTextContent(key)
         .getElement();
 
-      let ul =
-        ElementClass.createElementObject("ul");
+      let ul = ElementClass.createElementObject("ul");
 
       const list = sectionObject[key].map((el) => {
         return createTodo(el);
@@ -136,6 +136,35 @@ const UI = (function () {
     ul.append(...keys);
   };
 
+  const createDropdownOption = (option) => {
+    const optionEl = document.createElement("option");
+    optionEl.textContent = option.name;
+    optionEl.setAttribute("value", option.value);
+    return optionEl;
+  };
+
+  const handleDropdownOnchange = (e) =>{
+    const dropdownSelectedValueElement = e.target.parentElement.querySelector('.select-option-name');
+    dropdownSelectedValueElement.textContent = e.target.value;
+  }
+
+  const createDropdown = (name, id, options, container) => {
+    const select = document.createElement("select");
+    select.classList += 'dropdown';
+    select.id = id;
+    select.name = name;
+    select.value = options[0].value
+    options = [{name: `-- select ${name} -- `, value: ''}, ...options];
+    const optionList = options.map((option) => {
+      return createDropdownOption(option);
+    });
+
+    select.addEventListener('change', handleDropdownOnchange);
+
+    select.append(...optionList);
+    container.appendChild(select);
+  };
+
   return {
     createTodo,
     createProject,
@@ -144,6 +173,7 @@ const UI = (function () {
     createTodoList,
     addTaskToList,
     createSectionList,
+    createDropdown,
   };
 })();
 

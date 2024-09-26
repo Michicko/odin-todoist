@@ -44,7 +44,7 @@
             rows="2"
             placeholder="Description"
           ></textarea>
-          <div class="form-group">
+          <div class="form-group" id="task-form-priorities-box">
             <div class="custom-select">
               <label class="select-label" for="due-date">
                 <span class="mdi mdi-calendar-outline icon md"></span>
@@ -57,49 +57,21 @@
                 class="hidden-input date-picker"
               />
             </div>
-            <div class="custom-select">
-              <label
-                class="select-label dropdown-label"
-                for="priority"
-              >
-                <span class="mdi mdi-flag-variant-outline icon md"></span>
-                <p class="disp">Priority</p>
-              </label>
-              <select
-                name="priority"
-                id="priority"
-                class="dropdown"
-              >
-                <option value="p1">P1</option>
-                <option value="p2">P2</option>
-                <option value="p3">P3</option>
-                <option value="p4">P4</option>
-              </select>
-            </div>
+            <label class="priority-box" for="priority">
+              <span class="mdi mdi-flag-variant-outline icon md"></span>
+              <p class="select-option-name">Priority</p>
+            </label>
             <button type="button" class="">
               <span class="mdi mdi-dots-horizontal icon md"></span>
             </button>
           </div>
         </div>
         <div class="form-footer">
-          <div class="custom-select">
-            <label class="select-label dropdown-label" for="project">
-              <div>
-                <span class="icon sm" style="color: blue">#</span>
-                <p class="dark disp">Appointments</p>
-              </div>
-              <span class="mdi mdi-menu-down icon big"></span>
-            </label>
-            <select
-              name="project"
-              id="project"
-              class="dropdown"
-            >
-              <option value="appointments">Appointments</option>
-              <option value="goals">Goals</option>
-              <option value="grocerry">Grocerry</option>
-            </select>
-          </div>
+          <label class="project-box">
+            <span class="icon sm">#</span>
+            <p class="select-option-name">Project</p>
+            <span class="mdi mdi-menu-down icon big"></span>
+          </label>
           <div class="btn-box">
             <button
               type="button"
