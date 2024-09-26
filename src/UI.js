@@ -1,5 +1,15 @@
 import ElementClass from "./ElementClass";
+import Task from "./Task";
 import Todos from "./Todos";
+import {
+  buildDateTime,
+  closeDialog,
+  formatDate,
+  openDialog,
+  reloadPage,
+} from "./utils";
+const taskForm = document.querySelector("#task-form");
+const taskDialog = document.querySelector("#task-dialog");
 
 const UI = (function () {
   // create project
@@ -27,6 +37,43 @@ const UI = (function () {
     const id = +todoEl.dataset.id;
     const status = e.target.checked ? "completed" : "uncompleted";
     Todos.updateTodo(id, { status });
+  };
+
+  const updateDueDateSelector = (dueDate, value) => {
+    const dueDateSelectedValue =
+      dueDate.previousElementSibling.lastElementChild;
+    dueDateSelectedValue.textContent = value;
+  };
+
+  const updateDropdownValue = (dropdown, value) => {
+    const dropdownSelectedValueElement = dropdown.parentElement.querySelector(
+      ".select-option-name"
+    );
+    dropdownSelectedValueElement.textContent = value;
+  };
+
+  const editTodo = (todo) => {
+    openDialog(taskDialog);
+    const taskTitleElement = document.querySelector("#title");
+    const taskDescriptionElement = document.querySelector("#description");
+    const taskDueDateElement = document.querySelector("#due-date");
+    const taskPriorityElement = document.querySelector("#priority");
+    const taskProjectElement = document.querySelector("#project");
+
+    taskTitleElement.value = todo.title;
+    taskDescriptionElement.value = todo.description;
+    taskDueDateElement.value = todo.dueDate;
+    updateDueDateSelector(
+      taskDueDateElement,
+      buildDateTime(formatDate(todo.dueDate))
+    );
+    taskPriorityElement.value = todo.priority;
+    updateDropdownValue(taskPriorityElement, todo.priority);
+    taskProjectElement.value = todo.project;
+    updateDropdownValue(taskProjectElement, todo.project);
+
+    taskForm.setAttribute('data-method', "update");
+    taskForm.setAttribute('data-taskid', todo.id);
   };
 
   // create todo
@@ -63,6 +110,7 @@ const UI = (function () {
     inputCheck = inputCheck.getElement();
 
     inputCheck.addEventListener("change", toggleTodoStatus);
+    p.addEventListener("click", () => editTodo(todo));
 
     label.appendChildren([checkMark, inputCheck]);
 
@@ -174,21 +222,21 @@ const UI = (function () {
     const icon = document.createElement("span");
     icon.textContent = "#";
     icon.style.color = project.color.value;
-    icon.classList += 'icon'
+    icon.classList += "icon";
     const btnText = document.createElement("span");
     btnText.textContent = project.name[0].toUpperCase() + project.name.slice(1);
-    btnText.classList += "btn-text"
-    
+    btnText.classList += "btn-text";
+
     button.append(icon, btnText);
-    return button
+    return button;
   };
 
   const getSidebarProjectLinks = (container, projects) => {
     const projectsEl = projects.map((project) => {
       return createSidebarProjectLink(project);
-    })
+    });
     container.append(...projectsEl);
-  }
+  };
 
   return {
     createTodo,
@@ -199,7 +247,7 @@ const UI = (function () {
     addTaskToList,
     createSectionList,
     createDropdown,
-    getSidebarProjectLinks
+    getSidebarProjectLinks,
   };
 })();
 

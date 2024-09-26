@@ -13,6 +13,7 @@ const Todos = (function () {
     if (storageTodo) return;
     todos.push(todo);
     saveToLocalStorage("todos", todos);
+    reloadPage();
   };
 
   const updateTodo = (todoId, updatedTodo) => {
@@ -23,7 +24,6 @@ const Todos = (function () {
     todoList = todoList.filter((todo) => todo.id !== storageTodo.id);
     todoList.push(storageTodo);
     saveToLocalStorage("todos", todoList);
-    // reload page
     reloadPage();
   };
 

@@ -6,7 +6,13 @@ import Task from "./Task";
 import Todos from "./Todos";
 import UI from "./UI";
 import CompletedPage from "./CompletedPage";
-import { reloadPage } from "./utils";
+import {
+  buildDateTime,
+  closeDialog,
+  formatDate,
+  openDialog,
+  reloadPage,
+} from "./utils";
 
 const taskDialogBtn = document.querySelector("#open-task-dialog-btn");
 const closeTaskDialogBtn = document.querySelector("#close-task-dialog-btn");
@@ -22,7 +28,7 @@ const datePickers = document.querySelectorAll(".date-picker");
 const dropDownLabels = document.querySelectorAll(".dropdown-label");
 const colorSelectBox = document.querySelector(".color-select-box");
 const mainContainer = document.querySelector(".main-container");
-const sidebarProjectLinks = document.querySelector('.project-btns');
+const sidebarProjectLinks = document.querySelector(".project-btns");
 
 let currentUrl;
 const ui = UI;
@@ -30,7 +36,7 @@ const priorityDropdownOptions = [];
 let projectDropdownOptions = [];
 const storageProjects = Project.getAll();
 
-sidebarProjectLinks.innerHTML = '';
+sidebarProjectLinks.innerHTML = "";
 
 // get sidebar projects links
 ui.getSidebarProjectLinks(sidebarProjectLinks, storageProjects);
@@ -41,6 +47,7 @@ for (let i = 0; i < storageProjects.length; i++) {
     projectDropdownOptions.push(storageProjects[i].name);
   }
 }
+
 // create projects dropdown options
 projectDropdownOptions = projectDropdownOptions.map((el) => {
   let project = el.toLowerCase();
@@ -69,16 +76,6 @@ if (projectDropdownOptions && projectDropdownOptions.length > 0) {
 
 const links = document.querySelectorAll(".link");
 
-// Open dialog
-const openDialog = (dialog) => {
-  dialog.showModal();
-};
-
-// close dialog
-const closeDialog = (dialog) => {
-  dialog.close();
-};
-
 // Open date picker
 const popOpenDatePicker = (e) => {
   e.target.showPicker();
@@ -89,49 +86,12 @@ const openSelect = (select) => {
   select.showPicker();
 };
 
-// Build how date and time displays
-const buildDateTime = (today, selectedDate) => {
-  const [todayMonthDay, todayYear, _todayTime] = today.split(",");
-  const [selectedDateMonthDay, selectedDateYear, selectedDateTime] =
-    selectedDate.split(",");
-  const [todayMonth, todayDay] = todayMonthDay.split(" ");
-  const [selectedDateMonth, selectedDateDay] = selectedDateMonthDay.split(" ");
-
-  let date;
-
-  // compare selected date with today
-  if (todayYear === selectedDateYear) {
-    if (todayMonthDay === selectedDateMonthDay) {
-      date = "Today" + selectedDateTime;
-    } else if (
-      todayMonth === selectedDateMonth &&
-      +todayDay + 1 === +selectedDateDay
-    ) {
-      date = "Tomorrow" + selectedDateTime;
-    } else {
-      date = selectedDateMonthDay + selectedDateTime;
-    }
-  } else {
-    date = selectedDateMonthDay + selectedDateYear + selectedDateTime;
-  }
-
-  return date;
-};
-
 // Set and display the selected value from the current dropdown
 const setDatePickerValue = (e) => {
   const label = e.target.previousElementSibling;
   const span = label.lastElementChild;
-  let today = new Intl.DateTimeFormat("en-us", {
-    dateStyle: "medium",
-    timeStyle: "short",
-  }).format(new Date());
-  let date = new Intl.DateTimeFormat("en-US", {
-    dateStyle: "medium",
-    timeStyle: "short",
-  }).format(new Date(e.target.value));
-
-  span.textContent = buildDateTime(today, date);
+  let date = formatDate(e.target.value);
+  span.textContent = buildDateTime(date);
 };
 
 // Select option
@@ -164,18 +124,20 @@ const createProject = (e) => {
 };
 
 // create new task
-const createTask = (e) => {
+const saveTask = (e) => {
   e.preventDefault();
   const taskTitleElement = document.querySelector("#title");
   const taskDescriptionElement = document.querySelector("#description");
   const taskDueDateElement = document.querySelector("#due-date");
   const taskPriorityElement = document.querySelector("#priority");
   const taskProjectElement = document.querySelector("#project");
-  const pages = ["inbox", "today"];
+  const method = taskForm.dataset.method;
+  const taskId = +taskForm.dataset.taskid;
 
   if (!taskTitleElement.value) return;
 
   const task = new Task({
+    id: taskId,
     title: taskTitleElement.value,
     description: taskDescriptionElement.value,
     dueDate: taskDueDateElement.value,
@@ -184,16 +146,16 @@ const createTask = (e) => {
     project: taskProjectElement.value,
   });
 
-  Todos.saveTodo(task);
-  Project.updateTodoCounts(task.project);
-
-  if (currentUrl === task.project) {
-    ui.addTaskToList(task);
+  if (!method) {
+    Todos.saveTodo(task);
+    Project.updateTodoCounts(task.project);
+    if (currentUrl === task.project) {
+      ui.addTaskToList(task);
+    }
+  } else if(method === 'update') {
+    Todos.updateTodo(taskId, task);
   }
-
-  taskForm.reset();
   taskDialog.close();
-  reloadPage();
 };
 
 // Navigate to page on button click
@@ -250,7 +212,7 @@ links.forEach((link) => {
 });
 
 projectForm.addEventListener("submit", createProject);
-taskForm.addEventListener("submit", createTask);
+taskForm.addEventListener("submit", saveTask);
 
 colorSelectBox.innerHTML = "";
 colorDropdown.displayOnDom(colorSelectBox);
